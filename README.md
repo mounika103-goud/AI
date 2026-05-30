@@ -1,18 +1,17 @@
-# Health Prediction Application
+# Health Prediction App
 
-A production-quality CRUD-based patient health management system that stores blood test records, validates data, and utilizes an AI/ML logic layer to predict health conditions and generate intelligent remarks.
+This is a patient health tracking app that logs basic blood test records and tries to predict potential health risks using a simple decision logic layer.
 
 ## Features
-- **Full CRUD Operations**: Create, read, update, and delete patient records.
-- **Health Data Tracking**: Logs Glucose, Haemoglobin, and Cholesterol levels.
-- **AI/ML Prediction Logic**: Automatically analyzes health data and provides a disease risk prediction or health status in the "Remarks" field.
-- **Validation**: Strict frontend and backend validations for data integrity (e.g., proper email format, future DOB prevention, numeric bounds for blood metrics).
-- **Responsive Dashboard**: Built with React and Bootstrap for a clean, modern, and mobile-friendly user experience.
-- **Search & Filtering**: Search patients by name or email.
+- Add, view, edit, and delete patient records.
+- Track Glucose, Haemoglobin, and Cholesterol levels.
+- Basic prediction logic to flag potential health risks based on the blood metrics.
+- Validates data to ensure we don't have future dates of birth or negative blood metrics.
+- Built with React, FastAPI, and SQLite.
 
 ## Tech Stack
 - **Backend**: Python, FastAPI, SQLAlchemy (SQLite)
-- **Frontend**: React.js (Vite), React Router, Axios, Bootstrap 5, Lucide React (Icons)
+- **Frontend**: React.js (Vite), React Router, Axios, Lucide React
 
 ## Screenshots
 *(Add screenshots here)*
@@ -64,7 +63,7 @@ The React app will be available at `http://localhost:5173`.
 | PUT    | `/patients/{id}`  | Update an existing patient record |
 | DELETE | `/patients/{id}`  | Delete a patient record |
 
-## How the AI Prediction Works
-When a patient record is created or updated, the system analyzes the key blood metrics (Glucose, Haemoglobin, Cholesterol) through a lightweight decision logic layer located in `backend/services/prediction.py`. It checks these values against standard medical thresholds and returns meaningful insights. 
+## How the Prediction Works
+When you add or edit a patient, the system checks their blood metrics (Glucose, Haemoglobin, Cholesterol) in `backend/services/prediction.py`. It uses some basic threshold checks to see if the patient is at risk and returns a warning string.
 
-In a scaled real-world environment, this module can be instantly swapped to execute an external HTTP request (e.g., using `httpx`) to a dedicated Machine Learning microservice or an external Health API.
+Later on, we could hook this up to a real ML model via API if needed.

@@ -1,7 +1,7 @@
 def generate_health_remarks(glucose: float, haemoglobin: float, cholesterol: float) -> str:
     """
-    A lightweight local 'AI/ML' prediction logic to generate health remarks.
-    In a real-world scenario, this might call an external ML model API via httpx.
+    Generate basic health remarks based on blood test values.
+    TODO: Integrate with actual ML model via API later
     """
     remarks = []
     

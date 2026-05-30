@@ -27,13 +27,13 @@ const Dashboard = () => {
     }
   };
 
-  // Compute stats from patient data
+  // calculate dashboard stats
   const stats = useMemo(() => {
     const total = patients.length;
     const highRisk = patients.filter(p => getRiskLevel(p.remarks).level === 'High Risk').length;
     const normal = patients.filter(p => getRiskLevel(p.remarks).level === 'Normal').length;
 
-    // Recent = created in last 7 days
+    // TODO: maybe change this to 30 days later?
     const weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 7);
     const recent = patients.filter(p => new Date(p.created_at) >= weekAgo).length;
@@ -41,7 +41,7 @@ const Dashboard = () => {
     return { total, highRisk, normal, recent };
   }, [patients]);
 
-  // Pie chart data
+
   const pieData = useMemo(() => {
     const high = patients.filter(p => getRiskLevel(p.remarks).level === 'High Risk').length;
     const moderate = patients.filter(p => getRiskLevel(p.remarks).level === 'Moderate').length;
@@ -53,9 +53,11 @@ const Dashboard = () => {
     ].filter(d => d.value > 0);
   }, [patients]);
 
-  // Area chart — group patients by creation date
+  // format data for the charts
   const trendData = useMemo(() => {
     const groups = {};
+    // group by date
+
     patients.forEach(p => {
       const date = new Date(p.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       groups[date] = (groups[date] || 0) + 1;
@@ -63,8 +65,8 @@ const Dashboard = () => {
     return Object.entries(groups).map(([date, count]) => ({ date, count })).slice(-10);
   }, [patients]);
 
-  // Last 5 patients for recent activity
   const recentPatients = useMemo(() => {
+    // get top 5 latest
     return [...patients]
       .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       .slice(0, 5);

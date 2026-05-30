@@ -73,8 +73,9 @@ const PatientForm = () => {
     setSavedPatient(null);
 
     try {
+      console.log('saving patient details...', formData);
       // Simulate AI processing delay
-      await new Promise(r => setTimeout(r, 1200));
+      // await new Promise(r => setTimeout(r, 1200));
 
       const payload = {
         ...formData,
@@ -232,7 +233,7 @@ const PatientForm = () => {
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </motion.div>
 
-        {/* AI Prediction Result */}
+        {/* Show prediction results if we have them */}
         {savedPatient && (
           <div>
             <PredictionCard patient={savedPatient} />
